@@ -15,11 +15,11 @@ class Home extends React.Component{
             transactionsCount: 0,
             adminsCount: 0
         }
-        if (localStorage.getItem("token")) {
-            this.state.token = localStorage.getItem("token")
-        } else {
-            window.location = "/login";
-        }
+        // if (localStorage.getItem("token")) {
+        //     this.state.token = localStorage.getItem("token")
+        // } else {
+        //     window.location = "/login";
+        // }
     }
     // arrow function
     headerConfig = () => {
@@ -34,14 +34,14 @@ class Home extends React.Component{
         let url = base_url + "/product"
         axios.get(url, this.headerConfig())
         //checklist lolos
-        .then(Response => {
-            this.setState({productsCount: Response.data.length})
+        .then(response => {
+            this.setState({productsCount: response.data.length})
         })
         //error catch 
         .catch(error => {
             if (error.message) {
-                if (error.Response.status) {
-                    window.alert(error.Response.data.message)
+                if (error.response) {
+                    window.alert(error.response.data.message)
                     this.props.history.push("/login")
                 }
             } else {
@@ -50,21 +50,21 @@ class Home extends React.Component{
         })
     }
 
-    // fungsi update customerCount pada databases
+    //fungsi update customerCount pada databases
     getCustomer = () => {
         let url = base_url + "/customer"
         axios.get(url, this.headerConfig())
-        .then(Response => {
-            this.setState({customersCount: Response.data.length})
+        .then(response => {
+            this.setState({customersCount: response.data.length})
         })
         .catch(error => {
             if (error.message) {
-                if (error.Response.status) {
-                    window.alert(error.Response.data.length)
+                if (error.response) {
+                    window.alert(error.response.data.message)
                     this.props.history.push("/login")
                 }
             } else {
-                console.log(error)
+                console.log(error);
             }
         })
     }
@@ -73,13 +73,13 @@ class Home extends React.Component{
     getTransaction = () => {
         let url = base_url + "/transaksi"
         axios.get(url, this.headerConfig())
-        .then(Response => {
-            this.setState({transactionsCount: Response.data.length})
+        .then(response => {
+            this.setState({transactionsCount: response.data.length})
         })
         .catch(error => {
             if (error.message) {
-                if (error.Response.status) {
-                    window.alert(error.Response.data.message)
+                if (error.response) {
+                    window.alert(error.response.data.message)
                     this.props.history.push("/login")
                 }
             } else {
@@ -88,11 +88,32 @@ class Home extends React.Component{
         })
     }
 
-    // get nama admin melalui localstorage => fungsi untuk mengupdate state adminName
-    getAdmin = () => {
-        let admin = JSON.parse(localStorage.getItem('admin'))
-        this.setState({adminName: admin.name})
+    getAdmins = () => {
+        let url = base_url + "/admin"
+        axios.get(url, {headers: {
+            Authorization: "Bearer " + this.state.token 
+        }})
+        .then(response => {
+            this.setState({ adminsCount: response.data.length })
+        })
+        .catch(error => {
+            if(error.response){
+                if(error.response.status){
+                    window.alert(error.response.data.message + " getAdmins")
+                    this.props.history.push("/login")
+                }
+            }else{
+                console.log(error)
+            }
+
+        })
     }
+
+    // get nama admin melalui localstorage => fungsi untuk mengupdate state adminName
+    // getAdmin = () => {
+    //     let admin = JSON.parse(localStorage.getItem('admin'))
+    //     this.setState({adminName: admin.name})
+    // }
     
     // sebelum halama home di render program harus mendapatkan data adminName, ...., oleh karena itu kita harus memanggil fungsi2 trsebut di dalam componentdidmount
     componentDidMount(){
@@ -100,7 +121,7 @@ class Home extends React.Component{
         this.getAdmins()
         this.getProduct()
         this.getTransaction()
-        this.getAdmin()
+        //this.getAdmin()
     }
 
     render(){

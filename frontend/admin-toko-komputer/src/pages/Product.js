@@ -30,12 +30,12 @@ class Produk extends React.Component{
     }
 
     //header function untuk akses token
-    headerConfig = () => {
-        let header = {
-            header: {Authorization: `Bearer ${this.state.token}`}
-        }
-        return header
-    }
+    // headerConfig = () => {
+    //     let header = {
+    //         header: {Authorization: `Bearer ${this.state.token}`}
+    //     }
+    //     return header
+    // }
 
     //getProduct function untuk mengakses API get product 
     getProduct = () => {
