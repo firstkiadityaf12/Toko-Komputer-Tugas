@@ -7,7 +7,7 @@ import { base_url, product_image_url } from "../config"
 import $ from "jquery"
 import axios from "axios"
 
-class Produk extends React.Component{
+export default class Produk extends React.Component{
     constructor(){
         super()
         this.state = {
@@ -30,12 +30,12 @@ class Produk extends React.Component{
     }
 
     //header function untuk akses token
-    // headerConfig = () => {
-    //     let header = {
-    //         header: {Authorization: `Bearer ${this.state.token}`}
-    //     }
-    //     return header
-    // }
+    headerConfig = () => {
+        let header = {
+            header: { Authorization: `Bearer ${this.state.token}`}
+        }
+        return header
+    }
 
     //getProduct function untuk mengakses API get product 
     getProduct = () => {
@@ -54,11 +54,6 @@ class Produk extends React.Component{
                 console.log(error)
             }
         })
-    }
-
-    //akses fungsi componentdidmount
-    componentDidMount(){
-        this.getProduct()
     }
 
     //menambahkan fungsi add dan edit
@@ -118,6 +113,11 @@ class Produk extends React.Component{
             })
             .catch(error => console.log(error))
         }
+    }
+
+    //akses fungsi componentdidmount
+    componentDidMount(){
+        this.getProduct()
     }
 
     // fungsi dropProduct => untuk menghapus data
@@ -196,4 +196,3 @@ class Produk extends React.Component{
         )
     }
 }
-export default Produk;

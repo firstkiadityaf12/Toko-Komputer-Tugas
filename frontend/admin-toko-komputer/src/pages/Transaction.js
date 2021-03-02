@@ -13,11 +13,11 @@ class Transaction extends React.Component {
             selectedItem: null
         }
 
-        // if (localStorage.getItem("token")) {
-        //     this.state.token = localStorage.getItem("token")
-        // } else {
-        //     window.location = "/login"
-        // }
+        if (localStorage.getItem("token")) {
+            this.state.token = localStorage.getItem("token")
+        } else {
+            window.location = "/login"
+        }
     }
 
     headerConfig = () => {

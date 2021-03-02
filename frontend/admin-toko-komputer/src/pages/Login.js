@@ -24,15 +24,19 @@ class Login extends React.Component{
         axios.post(url, sendData)
             .then(response => {
                 this.setState({logged: response.data.logged})
-            if(this.state.logged) {
-                let admin = response.data.data
-                let token = response.token.token
-                localStorage.setItem("admin", JSON.stringify(admin))
-                localStorage.setItem("token", token)
+                localStorage.setItem("token", response.data.token)
+                console.log(this.state.logged)
+                localStorage.setItem("admin", JSON.stringify(response.data.data))
                 this.props.history.push("/")
-            } else {
-                this.setState({message: response.data.message})
-            }
+            // // if(this.state.logged) {
+            //     let admin = response.data.data
+            //     let token = response.token.token
+            //     localStorage.setItem("admin", JSON.stringify(admin))
+            //     localStorage.setItem("token", token)
+            //     this.props.history.push("/")
+            // // } else {
+            // //     this.setState({message: response.data.message})
+            // // }
         })
         // menangkap error 
         .catch(error => console.log(error));

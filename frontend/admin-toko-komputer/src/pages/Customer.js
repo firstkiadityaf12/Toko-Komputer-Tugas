@@ -23,12 +23,20 @@ class Customer extends React.Component{
             customer_id: "",
         }
 
-        // if (localStorage.getItem("token")) {
-        //     this.state.token = localStorage.getItem("token")
-        // } else {
-        //     window.location = "/login"
-        // }
-        // // this.headerConfig.bind(this)
+        if (localStorage.getItem("token")) {
+            this.state.token = localStorage.getItem("token")
+        } else {
+            window.location = "/login"
+        }
+        this.headerConfig.bind(this)
+    }
+
+    //untuk akses token
+    headerConfig = () => {
+        let header = {
+            headers: { Authorization: `Bearer ${this.state.token}`}
+        }
+        return header
     }
 
     getCustomers = () => {

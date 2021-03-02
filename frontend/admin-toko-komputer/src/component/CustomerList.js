@@ -13,7 +13,7 @@ export default class CustomerList extends React.Component{
                             {/** deskription */}
                             <h5 className="text-bold">Customer Name: {this.props.name}</h5>
                             <h6>Customer Phone: {this.props.phone}</h6>
-                            <h6>Customer Address: {this.prop.address}</h6>
+                            <h6>Customer Address: {this.props.address}</h6>
                         </div>
                         <div className="col-sm-2">
                             {/** action */}
